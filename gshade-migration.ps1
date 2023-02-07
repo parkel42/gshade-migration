@@ -11,7 +11,7 @@ while (1){
 	echo "https://gist.github.com/ry00001/3e2e63b986cb0c673645ea42ffafcc26#wheres-the-game-folder"
 	echo "Thanks to rika (@lostkagamine) for providing the instructions which this script is based off of.`n`n"
 	echo "Example: C:\Program Files (x86)\SquareEnix\FINAL FANTASY XIV - A Realm Reborn\game\"
-	$installdir = Read-Host -Prompt "Please paste the path of your Final Fantasy XIV Installation here"
+	$installdir = Read-Host -Prompt "Please paste the path of your Final Fantasy XIV Installation here, and press enter"
 	
 	if (Test-Path $installdir){
 		$installdir = $installdir.TrimEnd('game\')
