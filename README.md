@@ -14,6 +14,8 @@ https://gist.github.com/ry00001/3e2e63b986cb0c673645ea42ffafcc26
 
 # How To Use
 1. Download the script and save it somewhere on your computer.
-2. Navigate to the download location using File Explorer, then hold down Shift and right click, then click on "Open PowerShell Window" here.
-3. Run the script by typing in ./gshade-migration.ps1.
+2. Navigate to the download location using File Explorer, then hold down Shift and right click, then click on "Open PowerShell Window here".
+![image](https://user-images.githubusercontent.com/50959479/217268541-b8f83957-2823-4d72-b258-1fce1c0dfe58.png)
+3. Run the script by typing in `./gshade-migration.ps1` in the console window.
+![image](https://user-images.githubusercontent.com/50959479/217268966-39c55952-ec22-4724-9bc9-7dc002fb376b.png)
 4. Follow the instructions provided in the console window.
