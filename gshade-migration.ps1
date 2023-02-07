@@ -1,6 +1,6 @@
-$gshadeexec = "HKLM:\SOFTWARE\GShade"
+$gshadereg = "HKLM:\SOFTWARE\GShade"
 
-if (-not (Test-Path $gshadeexec)){
+if (-not (Test-Path $gshadereg)){
 	echo "`n`nGShade is not installed or is already uninstalled. You do not need to run this script."
 	Read-Host -Prompt "Press enter to exit."
 	exit
@@ -105,3 +105,5 @@ echo "`n`nIf you want to clean up the backup files, you can find them in these d
 echo "GShade Backup: $backupdir (contains gshade-presets, gshade-shaders, ReShade installer and custom shaders (KeepUI etc.))"
 echo "ReShade presets backup: $installdir\game\reshade-presets_backup"
 echo "ReShade shaders backup: $installdir\game\reshade-shaders_backup"
+
+echo "`n`nIf you want to, you can remove the GShade folder located at C:\Program Files\GShade since the uninstaller does not seem to do it."
