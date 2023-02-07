@@ -43,6 +43,7 @@ else{
 }
 
 echo "`n`nUninstalling GShade. Please follow the uninstallation instructions in the window that appears."
+echo "DO NOT restart your computer when prompted."
 Start-Process -Wait "C:\Program Files\GShade\GShade Uninstaller.exe"
 
 echo "Cleaning up after GShade..."
