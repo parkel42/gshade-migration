@@ -26,25 +26,26 @@ while (1){
 
 echo "`n`nBacking up gshade-presets and gshade-shaders..."
 $backupdir = "$env:USERPROFILE\gshade-backup\"
+$gshadedir = Get-ItemProperty 'HKLM:\Software\GShade\' | Select-Object -ExpandProperty instdir
 
 if (-not (Test-Path $backupdir)){
 	mkdir "$backupdir"
 	mkdir "$backupdir\installer"
 	mkdir "$backupdir\custom-shaders"
-	cp -Recurse "C:\Program Files\GShade\gshade-shaders" "$backupdir"
+	cp -Recurse "$gshadedir\gshade-shaders" "$backupdir"
 	cp -Recurse "$installdir\game\gshade-presets" "$backupdir"
 }
 else{
 	rm -Recurse "$backupdir\*"
 	mkdir "$backupdir\installer"
 	mkdir "$backupdir\custom-shaders"
-	cp -Recurse "C:\Program Files\Gshade\gshade-shaders" "$backupdir"
+	cp -Recurse "$gshadedir\gshade-shaders" "$backupdir"
 	cp -Recurse "$installdir\game\gshade-presets" "$backupdir"
 }
 
 echo "`n`nUninstalling GShade. Please follow the uninstallation instructions in the window that appears."
 echo "DO NOT restart your computer when prompted."
-Start-Process -Wait "C:\Program Files\GShade\GShade Uninstaller.exe"
+Start-Process -Wait "$gshadedir\GShade Uninstaller.exe"
 
 echo "Cleaning up after GShade..."
 
@@ -62,6 +63,10 @@ if (Test-Path $installdir\game\gshade-presets){
 
 if (Test-Path $installdir\game\gshade-addons){
 	rm -Recurse "$installdir\game\gshade-addons"
+}
+
+if (Test-Path "$env:PUBLIC\GShade Custom Shaders"){
+	rm -Recurse "$env:PUBLIC\GShade Custom Shaders"
 }
 
 echo "`n`nDownloading ReShade and other shaders. This process may take a while, you can go grab a coffee in the meantime!`n"
@@ -110,4 +115,6 @@ echo "GShade Backup: $backupdir (contains gshade-presets, gshade-shaders, ReShad
 echo "ReShade presets backup: $installdir\game\reshade-presets_backup"
 echo "ReShade shaders backup: $installdir\game\reshade-shaders_backup"
 
-echo "`n`nIf you want to, you can remove the GShade folder located at C:\Program Files\GShade since the uninstaller does not seem to do it."
+echo "`n`nIf you want to, you can also proceed to remove:"
+echo "1. The GShade folder located at $gshadedir since the uninstaller does not seem to do it."
+echo "2. The automated GShade backup files found at $env:PUBLIC\GShade Backups."
