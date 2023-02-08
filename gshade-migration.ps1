@@ -51,13 +51,16 @@ echo "Cleaning up after GShade..."
 if (Test-Path $installdir\game\d3d11.dll){
 	rm "$installdir\game\d3d11.dll"
 }
-elseif (Test-Path $installdir\game\dxgi.dll){
+
+if (Test-Path $installdir\game\dxgi.dll){
 	rm "$installdir\game\dxgi.dll"
 }
-elseif (Test-Path $installdir\game\gshade-presets){
+
+if (Test-Path $installdir\game\gshade-presets){
 	rm -Recurse "$installdir\game\gshade-presets"
 }
-elseif (Test-Path $installdir\game\gshade-addons){
+
+if (Test-Path $installdir\game\gshade-addons){
 	rm -Recurse "$installdir\game\gshade-addons"
 }
 
