@@ -72,12 +72,10 @@ if (Test-Path "$env:PUBLIC\GShade Custom Shaders"){
 echo "`n`nDownloading ReShade and other shaders. This process may take a while, you can go grab a coffee in the meantime!`n"
 echo "Downloading ReShade 5.6.0..."
 iwr "http://static.reshade.me/downloads/ReShade_Setup_5.6.0_Addon.exe" -OutFile "$backupdir\installer\ReShade_Setup_5.6.0_Addon.exe"
-echo "Downloading KeepUI.fx..."
-iwr "https://cdn.discordapp.com/attachments/1072202729692340245/1072202794494333038/KeepUI.fx" -OutFile "$backupdir\custom-shaders\KeepUI.fx"
-echo "Downloading Tools.fxh, Canvas.fxh and Stats.fxh..."
-iwr "https://cdn.discordapp.com/attachments/1072202729692340245/1072293221763403816/tools_shaders_canvas.zip" -OutFile "$backupdir\custom-shaders\tools_shaders_canvas.zip"
+echo "Downloading shaders..."
+iwr "https://kagamine.tech/shade/fixed_shaders.zip" -OutFile "$backupdir\custom-shaders\fixed_shaders.zip"
 
-Expand-Archive "$backupdir\custom-shaders\tools_shaders_canvas.zip" "$backupdir\custom-shaders\"
+Expand-Archive "$backupdir\custom-shaders\fixed_shaders.zip" "$backupdir\custom-shaders\"
 
 echo "`n`nInstalling ReShade. Please follow the installation instructions in the window that appears."
 echo "The full path of the Final Fantasy XIV executable that you should be targeting is $installdir\game\ffxiv_dx11.exe"
@@ -87,13 +85,13 @@ echo "`n`nMigrating GShade stuff to ReShade..."
 if (Test-Path "$installdir\game\reshade-shaders"){
 	mv "$installdir\game\reshade-shaders" "$installdir\game\reshade-shaders_backup"
 	cp -Recurse "$backupdir\gshade-shaders" "$installdir\game\reshade-shaders"
-	cp "$backupdir\custom-shaders\*.fx" "$installdir\game\reshade-shaders\shaders"
-	cp "$backupdir\custom-shaders\*.fxh" "$installdir\game\reshade-shaders\shaders"
+	cp -Force "$backupdir\custom-shaders\*.fx" "$installdir\game\reshade-shaders\shaders"
+	cp -Force "$backupdir\custom-shaders\*.fxh" "$installdir\game\reshade-shaders\shaders"
 }
 else{
 	cp -Recurse "$backupdir\gshade-shaders" "$installdir\game\reshade-shaders"
-	cp "$backupdir\custom-shaders\*.fx" "$installdir\game\reshade-shaders\shaders"
-	cp "$backupdir\custom-shaders\*.fxh" "$installdir\game\reshade-shaders\shaders"
+	cp -Force "$backupdir\custom-shaders\*.fx" "$installdir\game\reshade-shaders\shaders"
+	cp -Force "$backupdir\custom-shaders\*.fxh" "$installdir\game\reshade-shaders\shaders"
 }
 
 if (Test-Path "$installdir\game\reshade-presets"){
