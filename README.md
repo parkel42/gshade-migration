@@ -15,8 +15,10 @@ Note: Please *do not* restart your computer when prompted to do so by the GShade
 6. Modifies the default ReShade.ini file to set the EffectSearchPaths and TextureSearchPaths.
 
 # How To Use
-1. Download the script and save it somewhere on your computer.
-2. Navigate to the download location using File Explorer, then hold down Shift and right click, then click on "Open PowerShell Window here".
+1. Download the script by clicking on the green code button, then clicking on Download Zip.
+![image](https://user-images.githubusercontent.com/50959479/217788175-bbbb478a-3ba6-4170-8e73-0ce23a2719e4.png)
+2. Extract the `gshade-migration-main` folder anywhere you like.
+3. Navigate into the `gshade-migration-main` folder using File Explorer, then hold down Shift and right click, then click on "Open PowerShell Window here".
 
 ![image](https://user-images.githubusercontent.com/50959479/217268541-b8f83957-2823-4d72-b258-1fce1c0dfe58.png)
 
