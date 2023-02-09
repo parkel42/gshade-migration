@@ -20,11 +20,9 @@ Note: Please *do not* restart your computer when prompted to do so by the GShade
 
 2. Extract the `gshade-migration-main` folder anywhere you like.
 3. Navigate into the `gshade-migration-main` folder, then hold down Shift and right click, then click on "Open PowerShell Window here".
-
 ![image](https://user-images.githubusercontent.com/50959479/217268541-b8f83957-2823-4d72-b258-1fce1c0dfe58.png)
 
-3. Run the script by typing in `./gshade-migration.ps1` in the console window.
-
+3. Run the script by typing in `.\gshade-migration.ps1` in the console window.
 ![image](https://user-images.githubusercontent.com/50959479/217268966-39c55952-ec22-4724-9bc9-7dc002fb376b.png)
 
 4. Follow the instructions provided in the console window.
