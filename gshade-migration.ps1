@@ -26,7 +26,7 @@ while (1){
 
 echo "`n`nBacking up gshade-presets and gshade-shaders..."
 $backupdir = "$env:USERPROFILE\gshade-backup\"
-$gshadedir = Get-ItemProperty 'HKLM:\Software\GShade\' | Select-Object -ExpandProperty instdir
+$gshadedir = Get-ItemProperty $gshadereg | Select-Object -ExpandProperty instdir
 
 if (-not (Test-Path $backupdir)){
 	mkdir "$backupdir"
