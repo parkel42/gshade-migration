@@ -30,18 +30,15 @@ $gshadedir = Get-ItemProperty $gshadereg | Select-Object -ExpandProperty instdir
 
 if (-not (Test-Path $backupdir)){
 	mkdir "$backupdir"
-	mkdir "$backupdir\installer"
-	mkdir "$backupdir\custom-shaders"
-	cp -Recurse "$gshadedir\gshade-shaders" "$backupdir"
-	cp -Recurse "$installdir\game\gshade-presets" "$backupdir"
 }
 else{
 	rm -Recurse "$backupdir\*"
-	mkdir "$backupdir\installer"
-	mkdir "$backupdir\custom-shaders"
-	cp -Recurse "$gshadedir\gshade-shaders" "$backupdir"
-	cp -Recurse "$installdir\game\gshade-presets" "$backupdir"
 }
+
+mkdir "$backupdir\installer"
+mkdir "$backupdir\custom-shaders"
+cp -Recurse "$gshadedir\gshade-shaders" "$backupdir"
+cp -Recurse "$installdir\game\gshade-presets" "$backupdir"
 
 echo "`n`nUninstalling GShade. Please follow the uninstallation instructions in the window that appears."
 echo "DO NOT restart your computer when prompted."
@@ -49,19 +46,19 @@ Start-Process -Wait "$gshadedir\GShade Uninstaller.exe"
 
 echo "Cleaning up after GShade..."
 
-if (Test-Path $installdir\game\d3d11.dll){
+if (Test-Path "$installdir\game\d3d11.dll"){
 	rm "$installdir\game\d3d11.dll"
 }
 
-if (Test-Path $installdir\game\dxgi.dll){
+if (Test-Path "$installdir\game\dxgi.dll"){
 	rm "$installdir\game\dxgi.dll"
 }
 
-if (Test-Path $installdir\game\gshade-presets){
+if (Test-Path "$installdir\game\gshade-presets"){
 	rm -Recurse "$installdir\game\gshade-presets"
 }
 
-if (Test-Path $installdir\game\gshade-addons){
+if (Test-Path "$installdir\game\gshade-addons"){
 	rm -Recurse "$installdir\game\gshade-addons"
 }
 
@@ -84,23 +81,19 @@ Start-Process -Wait "$backupdir\installer\ReShade_Setup_5.6.0_Addon.exe"
 echo "`n`nMigrating GShade stuff to ReShade..."
 if (Test-Path "$installdir\game\reshade-shaders"){
 	mv "$installdir\game\reshade-shaders" "$installdir\game\reshade-shaders_backup"
-	cp -Recurse "$backupdir\gshade-shaders" "$installdir\game\reshade-shaders"
-	cp -Force "$backupdir\custom-shaders\*.fx" "$installdir\game\reshade-shaders\shaders"
-	cp -Force "$backupdir\custom-shaders\*.fxh" "$installdir\game\reshade-shaders\shaders"
-}
-else{
-	cp -Recurse "$backupdir\gshade-shaders" "$installdir\game\reshade-shaders"
-	cp -Force "$backupdir\custom-shaders\*.fx" "$installdir\game\reshade-shaders\shaders"
-	cp -Force "$backupdir\custom-shaders\*.fxh" "$installdir\game\reshade-shaders\shaders"
 }
 
 if (Test-Path "$installdir\game\reshade-presets"){
 	mv "$installdir\game\reshade-presets" "$installdir\game\reshade-presets_backup"
-	cp -Recurse "$backupdir\gshade-presets" "$installdir\game\reshade-presets"
 }
-else{
-	cp -Recurse "$backupdir\gshade-presets" "$installdir\game\reshade-presets"
-}
+
+#moving shaders
+cp -Recurse "$backupdir\gshade-shaders" "$installdir\game\reshade-shaders"
+cp -Force "$backupdir\custom-shaders\*.fx" "$installdir\game\reshade-shaders\shaders"
+cp -Force "$backupdir\custom-shaders\*.fxh" "$installdir\game\reshade-shaders\shaders"
+
+#moving presets
+cp -Recurse "$backupdir\gshade-presets" "$installdir\game\reshade-presets"
 
 echo "`n`nSetting texture and effect search paths in reshade.ini..."
 $reshadeini = "$installdir\game\reshade.ini"
