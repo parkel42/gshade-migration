@@ -14,6 +14,8 @@ Note: Please *do not* restart your computer when prompted to do so by the GShade
 5. Moves the GShade backup files into the appropriate location, as well as the various shader files.
 6. Modifies the default ReShade.ini file to set the EffectSearchPaths and TextureSearchPaths.
 
+**Note on #3 - the zip file containing the shaders downloaded in this step have been ocassionally flagged as malware by Windows Defender (it didn't for me). The file is safe according to [VirusTotal](https://www.virustotal.com/gui/file/84bb9c44c60f9a2d4f146d95c2661be91529fe3ab0469c718bfa80bb6006bd9e/detection), though.**
+
 # How To Use
 1. Download the script by clicking on the green code button, then clicking on Download Zip.
 	
