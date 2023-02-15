@@ -40,6 +40,14 @@ mkdir "$backupdir\custom-shaders"
 cp -Recurse "$gshadedir\gshade-shaders" "$backupdir"
 cp -Recurse "$installdir\game\gshade-presets" "$backupdir"
 
+echo "`n`nDownloading ReShade and other shaders. This process may take a while, you can go grab a coffee in the meantime!`n"
+echo "Downloading ReShade 5.6.0..."
+iwr "http://reshade.me/downloads/ReShade_Setup_5.6.0_Addon.exe" -OutFile "$backupdir\installer\ReShade_Setup_5.6.0_Addon.exe"
+
+echo "Downloading shaders..."
+iwr "https://kagamine.tech/shade/fixed_shaders.zip" -OutFile "$backupdir\custom-shaders\fixed_shaders.zip"
+Expand-Archive "$backupdir\custom-shaders\fixed_shaders.zip" "$backupdir\custom-shaders\"
+
 echo "`n`nUninstalling GShade. Please follow the uninstallation instructions in the window that appears."
 echo "DO NOT restart your computer when prompted."
 Start-Process -Wait "$gshadedir\GShade Uninstaller.exe"
@@ -65,14 +73,6 @@ if (Test-Path "$installdir\game\gshade-addons"){
 if (Test-Path "$env:PUBLIC\GShade Custom Shaders"){
 	rm -Recurse "$env:PUBLIC\GShade Custom Shaders"
 }
-
-echo "`n`nDownloading ReShade and other shaders. This process may take a while, you can go grab a coffee in the meantime!`n"
-echo "Downloading ReShade 5.6.0..."
-iwr "http://static.reshade.me/downloads/ReShade_Setup_5.6.0_Addon.exe" -OutFile "$backupdir\installer\ReShade_Setup_5.6.0_Addon.exe"
-echo "Downloading shaders..."
-iwr "https://kagamine.tech/shade/fixed_shaders.zip" -OutFile "$backupdir\custom-shaders\fixed_shaders.zip"
-
-Expand-Archive "$backupdir\custom-shaders\fixed_shaders.zip" "$backupdir\custom-shaders\"
 
 echo "`n`nInstalling ReShade. Please follow the installation instructions in the window that appears."
 echo "The full path of the Final Fantasy XIV executable that you should be targeting is $installdir\game\ffxiv_dx11.exe"
