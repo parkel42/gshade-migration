@@ -18,7 +18,7 @@ Note: Please *do not* restart your computer when prompted to do so by the GShade
 ## If you have already uninstalled GShade:
 1. Downloads ReShade 5.6.0 + addons, necessary/custom shaders and gshade-presets/shaders.
 2. Runs the ReShade installer.
-3. Moves the downloaded GShade folders into the appropriate location.
+3. Moves the downloaded GShade folders into the appropriate location, as well as the various shader files.
 4. Modifies the default ReShade.ini file to set the EffectSearchPaths and TextureSearchPaths.
 
 **Note - the zip file containing the custom shaders may be flagged as malware by Windows Defender (it didn't for me). The file is safe according to [VirusTotal](https://www.virustotal.com/gui/file/84bb9c44c60f9a2d4f146d95c2661be91529fe3ab0469c718bfa80bb6006bd9e/detection), though.**
