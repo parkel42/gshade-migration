@@ -15,7 +15,7 @@ function BackupGShade{
 	echo "`n`nBacking up gshade-presets and gshade-shaders..."
 
 	cp -Recurse "$gshadedir\gshade-shaders" "$backupdir"
-	cp -Recurse "$installdir\game\gshade-presets" "$backupdir"
+	cp -Recurse "$installdir\gshade-presets" "$backupdir"
 }
 
 function DownloadStuff{
@@ -42,8 +42,8 @@ while (1){
 	echo "Example: C:\Program Files (x86)\SquareEnix\FINAL FANTASY XIV - A Realm Reborn\game\"
 	$installdir = Read-Host -Prompt "Please paste the path of your Final Fantasy XIV Installation here, and press enter"
 	
-	if (Test-Path $installdir){
-		$installdir = $installdir.TrimEnd('game\')
+	if (Test-Path "$installdir\ffxiv_dx11.exe"){
+		$installdir = $installdir.TrimEnd('\')
 		break
 	}
 	else{
@@ -79,24 +79,24 @@ else{
 #cleanup after gshade
 echo "Cleaning up GShade..."
 
-if (Test-Path "$installdir\game\d3d11.dll"){
-	if ($(Get-ItemProperty "$installdir\game\d3d11.dll" | Select-Object VersionInfo) -match "GShade"){
-		rm "$installdir\game\d3d11.dll"
+if (Test-Path "$installdir\d3d11.dll"){
+	if ($(Get-ItemProperty "$installdir\d3d11.dll" | Select-Object VersionInfo) -match "GShade"){
+		rm "$installdir\d3d11.dll"
 	}
 }
 
-if (Test-Path "$installdir\game\dxgi.dll"){
-	if ($(Get-ItemProperty "$installdir\game\dxgi.dll" | Select-Object VersionInfo) -match "GShade"){
-		rm "$installdir\game\dxgi.dll"
+if (Test-Path "$installdir\dxgi.dll"){
+	if ($(Get-ItemProperty "$installdir\dxgi.dll" | Select-Object VersionInfo) -match "GShade"){
+		rm "$installdir\dxgi.dll"
 	}
 }
 
-if (Test-Path "$installdir\game\gshade-presets"){
-	rm -Recurse "$installdir\game\gshade-presets"
+if (Test-Path "$installdir\gshade-presets"){
+	rm -Recurse "$installdir\gshade-presets"
 }
 
-if (Test-Path "$installdir\game\gshade-addons"){
-	rm -Recurse "$installdir\game\gshade-addons"
+if (Test-Path "$installdir\gshade-addons"){
+	rm -Recurse "$installdir\gshade-addons"
 }
 
 if (Test-Path "$env:PUBLIC\GShade Custom Shaders"){
@@ -105,28 +105,28 @@ if (Test-Path "$env:PUBLIC\GShade Custom Shaders"){
 
 #install reshade and migrate
 echo "`n`nInstalling ReShade. Please follow the installation instructions in the window that appears."
-echo "The full path of the Final Fantasy XIV executable that you should be targeting is $installdir\game\ffxiv_dx11.exe"
+echo "The full path of the Final Fantasy XIV executable that you should be targeting is $installdir\ffxiv_dx11.exe"
 Start-Process -Wait "$backupdir\installer\ReShade_Setup_5.6.0_Addon.exe"
 
 echo "`n`nMigrating GShade stuff to ReShade..."
-if (Test-Path "$installdir\game\reshade-shaders"){
-	mv "$installdir\game\reshade-shaders" "$installdir\game\reshade-shaders_backup"
+if (Test-Path "$installdir\reshade-shaders"){
+	mv "$installdir\reshade-shaders" "$installdir\reshade-shaders_backup"
 }
 
-if (Test-Path "$installdir\game\reshade-presets"){
-	mv "$installdir\game\reshade-presets" "$installdir\game\reshade-presets_backup"
+if (Test-Path "$installdir\reshade-presets"){
+	mv "$installdir\reshade-presets" "$installdir\reshade-presets_backup"
 }
 
 #moving shaders
-cp -Recurse "$backupdir\gshade-shaders" "$installdir\game\reshade-shaders"
-cp -Force "$backupdir\custom-shaders\*.fx" "$installdir\game\reshade-shaders\shaders"
-cp -Force "$backupdir\custom-shaders\*.fxh" "$installdir\game\reshade-shaders\shaders"
+cp -Recurse "$backupdir\gshade-shaders" "$installdir\reshade-shaders"
+cp -Force "$backupdir\custom-shaders\*.fx" "$installdir\reshade-shaders\shaders"
+cp -Force "$backupdir\custom-shaders\*.fxh" "$installdir\reshade-shaders\shaders"
 
 #moving presets
-cp -Recurse "$backupdir\gshade-presets" "$installdir\game\reshade-presets"
+cp -Recurse "$backupdir\gshade-presets" "$installdir\reshade-presets"
 
 echo "`n`nSetting texture and effect search paths in reshade.ini..."
-$reshadeini = "$installdir\game\reshade.ini"
+$reshadeini = "$installdir\reshade.ini"
 [System.Collections.ArrayList]$contents = Get-Content $reshadeini
 $generalindex = ($contents | Select-String "\[GENERAL\]").LineNumber
 
@@ -134,18 +134,18 @@ $search1 = $contents | Select-String "EffectSearchPaths"
 $search2 = $contents | Select-String "TextureSearchPaths"
 
 if ($search1){
-	$contents = $contents -replace "EffectSearchPaths.*$", "EffectSearchPaths=$installdir\game\reshade-shaders\**"
+	$contents = $contents -replace "EffectSearchPaths.*$", "EffectSearchPaths=$installdir\reshade-shaders\**"
 }
 else{
-	$contents.Insert($generalindex, "EffectSearchPaths=$installdir\game\reshade-shaders\**")
+	$contents.Insert($generalindex, "EffectSearchPaths=$installdir\reshade-shaders\**")
 }
 
 if ($search2){
-	$contents = $contents -replace "TextureSearchPaths.*$", "TextureSearchPaths=$installdir\game\reshade-shaders\**"
+	$contents = $contents -replace "TextureSearchPaths.*$", "TextureSearchPaths=$installdir\reshade-shaders\**"
 	
 }
 else{
-	$contents.Insert($generalindex, "TextureSearchPaths=$installdir\game\reshade-shaders\**")
+	$contents.Insert($generalindex, "TextureSearchPaths=$installdir\reshade-shaders\**")
 }
 
 $contents | Out-File "$reshadeini"
@@ -153,8 +153,8 @@ $contents | Out-File "$reshadeini"
 echo "`n`nDone! Launch the game and try it out!"
 echo "`n`nIf you want to clean up the backup files, you can find them in these directories: "
 echo "1. GShade Backup/Temp Folder: $backupdir (contains gshade-presets, gshade-shaders, ReShade installer and custom shaders (KeepUI etc.))"
-echo "2. ReShade presets backup: $installdir\game\reshade-presets_backup"
-echo "3. ReShade shaders backup: $installdir\game\reshade-shaders_backup"
+echo "2. ReShade presets backup: $installdir\reshade-presets_backup"
+echo "3. ReShade shaders backup: $installdir\reshade-shaders_backup"
 
 if ($gshadedir){
 	echo "`n`nIf you want to, you can also proceed to remove:"
