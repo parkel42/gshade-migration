@@ -1,8 +1,10 @@
 # Purpose
-PowerShell script to automatically migrate GShade to ReShade for FFXIV. This has only been tested in PowerShell 7, but it *should* work with older versions of PowerShell.
-
 This script is largely based on the GShade -> ReShade migration instructions provided by [rika](https://twitter.com/lostkagamine), which can be found here: 
 https://gist.github.com/ry00001/3e2e63b986cb0c673645ea42ffafcc26
+
+This repository contains a PowerShell script to automatically migrate GShade to ReShade for FFXIV. This has only been tested in PowerShell 7, but it *should* work with older versions of PowerShell.
+
+This script will also work if you have uninstalled GShade previously.
 
 Note: Please *do not* restart your computer when prompted to do so by the GShade uninstaller.
 
