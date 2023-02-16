@@ -30,7 +30,7 @@ function DownloadStuff{
 	if (-not (Test-Path $backupdir\gshade-shaders) -or -not (Test-Path $backupdir\gshade-presets)){
 		echo "Downloading GShade Shaders and Presets..."
 		iwr "https://kagamine.tech/shade/gshade.zip" -OutFile "$backupdir\gshade.zip"
-		Expand-Archive "$backupdir\gshade.zip" "$backupdir\"
+		Expand-Archive "$backupdir\gshade.zip" "$backupdir\" -Force
 	}
 }
 
