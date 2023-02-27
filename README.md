@@ -11,14 +11,14 @@ Note: Please *do not* restart your computer when prompted to do so by the GShade
 # What Does This Do?
 ## If GShade is still installed:
 1. Backs up the gshade-presets and gshade-shaders folder to {YOUR USER PROFILE}\gshade-backup.
-2. Downloads ReShade 5.6.0 + addons and necessary/custom shaders.
+2. Downloads ReShade + addons and necessary/custom shaders.
 3. Runs the GShade uninstaller.
 4. Runs the ReShade installer.
 5. Moves the GShade backup files into the appropriate location, as well as the various shader files.
 6. Modifies the default ReShade.ini file to set the EffectSearchPaths and TextureSearchPaths.
 
 ## If you have already uninstalled GShade:
-1. Downloads ReShade 5.6.0 + addons, necessary/custom shaders and gshade-presets/shaders.
+1. Downloads ReShade + addons, necessary/custom shaders and gshade-presets/shaders.
 2. Runs the ReShade installer.
 3. Moves the downloaded GShade folders into the appropriate location, as well as the various shader files.
 4. Modifies the default ReShade.ini file to set the EffectSearchPaths and TextureSearchPaths.
