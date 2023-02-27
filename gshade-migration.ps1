@@ -20,8 +20,8 @@ function BackupGShade{
 
 function DownloadStuff{
 	echo "`n`nDownloading ReShade and other shaders. This process may take a while, you can go grab a coffee in the meantime!`n"
-	echo "Downloading ReShade 5.7.0..."
-	iwr "https://reshade.me/downloads/ReShade_Setup_5.7.0_Addon.exe" -OutFile "$backupdir\installer\ReShade_Setup_Addon.exe"
+	echo "Downloading ReShade 5.6.0..."
+	iwr "https://reshade.me/downloads/ReShade_Setup_5.6.0_Addon.exe" -OutFile "$backupdir\installer\ReShade_Setup_Addon.exe"
 
 	echo "Downloading custom/fixed shaders..."
 	iwr "https://kagamine.tech/shade/fixed_shaders.zip" -OutFile "$backupdir\custom-shaders\fixed_shaders.zip"
