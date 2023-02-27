@@ -20,8 +20,8 @@ function BackupGShade{
 
 function DownloadStuff{
 	echo "`n`nDownloading ReShade and other shaders. This process may take a while, you can go grab a coffee in the meantime!`n"
-	echo "Downloading ReShade 5.6.0..."
-	iwr "https://reshade.me/downloads/ReShade_Setup_5.6.0_Addon.exe" -OutFile "$backupdir\installer\ReShade_Setup_5.6.0_Addon.exe"
+	echo "Downloading ReShade 5.7.0..."
+	iwr "https://reshade.me/downloads/ReShade_Setup_5.7.0_Addon.exe" -OutFile "$backupdir\installer\ReShade_Setup_Addon.exe"
 
 	echo "Downloading custom/fixed shaders..."
 	iwr "https://kagamine.tech/shade/fixed_shaders.zip" -OutFile "$backupdir\custom-shaders\fixed_shaders.zip"
@@ -79,12 +79,14 @@ else{
 #cleanup after gshade
 echo "Cleaning up GShade..."
 
+#only remove if dll is a gshade dll
 if (Test-Path "$installdir\d3d11.dll"){
 	if ($(Get-ItemProperty "$installdir\d3d11.dll" | Select-Object VersionInfo) -match "GShade"){
 		rm "$installdir\d3d11.dll"
 	}
 }
 
+#only remove if dll is a gshade dll
 if (Test-Path "$installdir\dxgi.dll"){
 	if ($(Get-ItemProperty "$installdir\dxgi.dll" | Select-Object VersionInfo) -match "GShade"){
 		rm "$installdir\dxgi.dll"
@@ -106,7 +108,7 @@ if (Test-Path "$env:PUBLIC\GShade Custom Shaders"){
 #install reshade and migrate
 echo "`n`nInstalling ReShade. Please follow the installation instructions in the window that appears."
 echo "The full path of the Final Fantasy XIV executable that you should be targeting is $installdir\ffxiv_dx11.exe"
-Start-Process -Wait "$backupdir\installer\ReShade_Setup_5.6.0_Addon.exe"
+Start-Process -Wait "$backupdir\installer\ReShade_Setup_Addon.exe"
 
 echo "`n`nMigrating GShade stuff to ReShade..."
 if (Test-Path "$installdir\reshade-shaders"){
